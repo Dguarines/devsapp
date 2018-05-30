@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "Devsapp-tvOS.app"
-               BlueprintName = "Devsapp-tvOS"
-               ReferencedContainer = "container:Devsapp.xcodeproj">
+               BuildableName = "devsapp-tvOS.app"
+               BlueprintName = "devsapp-tvOS"
+               ReferencedContainer = "container:devsapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Devsapp-tvOSTests.xctest"
-               BlueprintName = "Devsapp-tvOSTests"
-               ReferencedContainer = "container:Devsapp.xcodeproj">
+               BuildableName = "devsapp-tvOSTests.xctest"
+               BlueprintName = "devsapp-tvOSTests"
+               ReferencedContainer = "container:devsapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Devsapp-tvOSTests.xctest"
-               BlueprintName = "Devsapp-tvOSTests"
-               ReferencedContainer = "container:Devsapp.xcodeproj">
+               BuildableName = "devsapp-tvOSTests.xctest"
+               BlueprintName = "devsapp-tvOSTests"
+               ReferencedContainer = "container:devsapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Devsapp-tvOS.app"
-            BlueprintName = "Devsapp-tvOS"
-            ReferencedContainer = "container:Devsapp.xcodeproj">
+            BuildableName = "devsapp-tvOS.app"
+            BlueprintName = "devsapp-tvOS"
+            ReferencedContainer = "container:devsapp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Devsapp-tvOS.app"
-            BlueprintName = "Devsapp-tvOS"
-            ReferencedContainer = "container:Devsapp.xcodeproj">
+            BuildableName = "devsapp-tvOS.app"
+            BlueprintName = "devsapp-tvOS"
+            ReferencedContainer = "container:devsapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Devsapp-tvOS.app"
-            BlueprintName = "Devsapp-tvOS"
-            ReferencedContainer = "container:Devsapp.xcodeproj">
+            BuildableName = "devsapp-tvOS.app"
+            BlueprintName = "devsapp-tvOS"
+            ReferencedContainer = "container:devsapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

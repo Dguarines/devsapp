@@ -6,25 +6,33 @@ import ReduxThunk from 'redux-thunk';
 
 import Reducers from './src/Reducers';
 
-import Preload from './src/Preload';
-import Home    from './src/Home';
+import Preload   from './src/Preload';
+import Home      from './src/Home';
+import Conversas from './src/Conversas';
+import SignUp    from './src/SingUp'
 
 let store = createStore(Reducers, applyMiddleware(ReduxThunk));
 
-const Navegator = StackNavigator({
-    Preload:{
-      screen:Preload
-    },
-    Home:{
-      screen:Home
-    }
+const Navegador = StackNavigator({
+  Preload:{
+    screen:Preload
+  },
+  Home:{
+    screen:Home
+  },
+  Conversas:{
+    screen:Conversas
+  },
+  SignUp:{
+    screen:SignUp
+  }
 });
 
 export default class App extends Component {
-  render(){
-    return(
+  render() {
+    return (
       <Provider store={store}>
-          <Navegator />
+        <Navegador />
       </Provider>
     );
   }
