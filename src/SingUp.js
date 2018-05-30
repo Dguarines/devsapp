@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { checkLogin, changeEmail, changePassword, changeName } from './actions/AuthActions';
+import { checkLogin, changeEmail, changePassword, changeName, signUp } from './actions/AuthActions';
 
 export class SingUp extends Component {
 
@@ -27,7 +27,9 @@ export class SingUp extends Component {
                 <Text>Digite sua Senha</Text>
                 <TextInput secureTextEntry style={styles.input} value={this.props.password} onChangeText={this.props.changePassword} />
 
-                <Button title="Cadastrar" onPress={} />
+                <Button title="Cadastrar" onPress={() => {
+                    this.props.signUp(this.props.name, this.props.email, this.props.password);
+                }} />
             </View>
 		);
 	}
@@ -57,5 +59,5 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const SingUpConnect = connect(mapStateToProps, { checkLogin, changeEmail, changePassword, changeName })(SingUp);
+const SingUpConnect = connect(mapStateToProps, { checkLogin, changeEmail, changePassword, changeName, signUp })(SingUp);
 export default SingUpConnect;

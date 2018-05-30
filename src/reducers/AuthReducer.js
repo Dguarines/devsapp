@@ -13,17 +13,21 @@ const AuthReducer = (state = initialState, action) => {
 	}
 
 	if(action.type == 'changeEmail'){
-		return {...state, email:action.payload.email}
+		return {...state, email:action.payload.email};
 	}
 
 	if(action.type == 'changePassword'){
-		return {...state, password:action.payload.password}
+		return {...state, password:action.payload.password};
 	}
 
 	if(action.type == 'changeName'){
-		return {...state, password:action.payload.name}
+		return {...state, password:action.payload.name};
 	}
 
+	if(action.type == 'changeUid'){
+		return {...state, uid:action.payload.uid};
+	}
+	
 	return state;
 };
 
