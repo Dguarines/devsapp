@@ -14,12 +14,12 @@ export class Home extends Component {
 		super(props);
 		this.state = {};
 
-		this.loginButton = this.loginButton.bind(this);
+		this.signinButton = this.signinButton.bind(this);
 		this.signupButton = this.signupButton.bind(this); 
 	}
 
-	loginButton(){
-
+	signinButton(){
+		this.props.navigation.navigate('SignIn');
 	}
 
 	signupButton(){
@@ -31,7 +31,7 @@ export class Home extends Component {
 			<View style={styles.container}>
 				<Text style={styles.h1}>Devsapp 1.0</Text>
 				<View style={styles.buttonArea}>
-					<Button onPress={this.loginButton} title="Login"/>
+					<Button onPress={this.signinButton} title="Login"/>
 					<Button onPress={this.signupButton} title="Cadastrar"/>
 				</View>
 			</View>
