@@ -7,7 +7,8 @@ export class Home extends Component {
 
 	static navigationOptions = {
 		title:'',
-		header:null
+		headerMode: 'none',
+		header: {visible: false}
 	}
 
 	constructor(props) {

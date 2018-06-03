@@ -8,7 +8,8 @@ export class Preload extends Component {
 
 	static navigationOptions = {
 		title:'',
-		header:null
+		headerMode: 'none',
+		header: null
 	}
 
 	constructor(props) {
