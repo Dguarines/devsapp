@@ -21,11 +21,11 @@ const AuthReducer = (state = initialState, action) => {
 	}
 
 	if(action.type == 'changeName'){
-		return {...state, password:action.payload.name};
+		return {...state, name:action.payload.name};
 	}
 
 	if(action.type == 'changeUid'){
-		return {...state, uid:action.payload.uid};
+		return {...state, status:1, uid:action.payload.uid};
 	}
 	
 	return state;

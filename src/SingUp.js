@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin, changeEmail, changePassword, changeName, signUp } from './actions/AuthActions';
 
@@ -13,6 +13,13 @@ export class SingUp extends Component {
 		super(props);
         this.state = {};
         
+    }
+
+    componentDidUpdate(){
+        if(this.props.state == 1){
+            Keyboard.dismiss();
+            this.props.navigation.navigate('Conversas');
+        }
     }
 
 	render() {
@@ -55,7 +62,8 @@ const mapStateToProps = (state) => {
 	return {
         name:state.auth.name,
         email:state.auth.email,
-        password:state.auth.password
+        password:state.auth.password,
+        status:state.auth.status
 	};
 };
 
