@@ -6,11 +6,11 @@ import ReduxThunk from 'redux-thunk';
 
 import Reducers from './src/Reducers';
 
-import Preload   from './src/Preload';
-import Home      from './src/Home';
-import Conversas from './src/Conversas';
-import SignUp    from './src/SingUp';
-import SignIn    from './src/SignIn';
+import Preload   from './src/screen/Preload';
+import Home      from './src/screen/Home';
+import Conversas from './src/screen/Conversas';
+import SignUp    from './src/screen/SingUp';
+import SignIn    from './src/screen/SignIn';
 
 let store = createStore(Reducers, applyMiddleware(ReduxThunk));
 

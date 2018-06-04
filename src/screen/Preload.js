@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { checkLogin } from './actions/AuthActions';
 import { NavigationActions, StackActions } from 'react-navigation';
+
+import { checkLogin } from '../actions/AuthActions';
 
 export class Preload extends Component {
 

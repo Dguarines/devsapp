@@ -12,13 +12,13 @@ export const getContactList = () => {
                     name:childItem.val().name
                 });
             });
-        });
 
-        dispatch({
-            type:'setContactList',
-            payload:{
-                contatos:users
-            }
+            dispatch({
+                type:'setContactList',
+                payload:{
+                    users:users
+                }
+            });
         });
     };
 };
