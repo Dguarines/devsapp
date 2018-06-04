@@ -17,8 +17,7 @@ const ConversasNavigator = TabNavigator({
         screen:Config
     }
 }, {
-    tabBarPosition:'bottom',
-    headerMode: 'none'
+    tabBarPosition:'bottom'
 })
 
 export default ConversasNavigator;

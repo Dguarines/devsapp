@@ -8,12 +8,14 @@ export class Home extends Component {
 	static navigationOptions = {
 		title:'',
 		headerMode: 'none',
-		header: {visible: false}
+		header: null
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {};
+
+		console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 
 		this.signinButton = this.signinButton.bind(this);
 		this.signupButton = this.signupButton.bind(this); 
