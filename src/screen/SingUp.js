@@ -17,7 +17,7 @@ export class SingUp extends Component {
     }
 
     componentDidUpdate(){
-        if(this.props.state == 1){
+        if(this.props.status == 1){
             Keyboard.dismiss();
             this.props.navigation.navigate('Conversas');
         }

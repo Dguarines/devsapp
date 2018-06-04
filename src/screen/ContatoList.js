@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getContactList } from '../actions/ChatActions';
+import ContatoItem from '../components/ContatoList/ContatoItem';
 
 export class ContatoList extends Component {
 
@@ -18,16 +19,17 @@ export class ContatoList extends Component {
 
 		console.disableYellowBox = true;
 		this.props.getContactList();
+		this.contatoClick = this.contatoClick.bind(this);
+	}
+
+	contatoClick(){
+		
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList data={this.props.contatos} renderItem={(item)=>{
-					<View>
-						<Text> -> {item.name} </Text>
-					</View>
-				}} />
+				<FlatList data={this.props.contatos} renderItem={ (item)=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
 			</View>
 		);
 	}
