@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableHighlight, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getContactList } from '../actions/ChatActions';
@@ -15,21 +15,27 @@ export class ContatoList extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			users:[]
+		};
 
 		console.disableYellowBox = true;
 		this.props.getContactList();
 		this.contatoClick = this.contatoClick.bind(this);
+
+		AsyncStorage.getItem("users").then((value) => {
+			this.setState({"users":value});
+		});
 	}
 
-	contatoClick(){
-		
+	contatoClick(item){
+		alert('Clickou em ' + item['name']);
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList data={this.props.contatos} renderItem={ (item)=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
+				<FlatList data={this.state.users} renderItem={ (item)=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
 			</View>
 		);
 	}
@@ -38,7 +44,9 @@ export class ContatoList extends Component {
 
 const styles = StyleSheet.create({
 	container:{
-		margin:10
+		margin:10,
+		flex:1,
+		justifyContent:'center'
 	}
 });
 
