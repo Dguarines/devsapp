@@ -17,7 +17,7 @@ export default class ContatoItem extends Component {
     render(){
         return(
             <TouchableHighlight underlayColor="#DDDDDD" style={styles.buttonArea} onPress={this.onClick}>
-                <Text> -> {this.props.data.name} </Text>
+                <Text> -> {this.props.data['name']} </Text>
             </TouchableHighlight>
         );
     }

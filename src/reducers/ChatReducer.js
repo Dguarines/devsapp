@@ -1,12 +1,12 @@
 const initialState = {
     chats:[],
-    contatos:[]
+    users:null
 };
 
 const ChatReducer = (state = initialState, action) => {
 
-    if(action.type == 'setContactList'){
-        return { ...state, contatos:action.payload.users}
+    if(action.type == 'carregarListaDeUsuarios'){
+        return { ...state, users:action.payload.users}
     }
 	
 	return state;
