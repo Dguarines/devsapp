@@ -16,11 +16,7 @@ export class ContatoList extends Component {
 	constructor(props) {
 		super(props);
 
-		var users = [{key:'Zu9vw529HEURRyxVz19xUgWvD433', name:'Jessica'}];
-
-		this.state = {
-			users:users
-		};
+		this.state = {};
 
 		console.disableYellowBox = true;
 		this.props.pegarListaDeUsuarios(this.props.uid);
@@ -30,14 +26,13 @@ export class ContatoList extends Component {
 	}
 
 	contatoClick(item){
-		//alert('nome:'+item.name+'/key:'+item.key);
-		this.props.createChat( this.props.uid, item.key );
+		this.props.createChat( this.props.uid, item.key);
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList data={this.props.users} renderItem={ (item)=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
+				<FlatList data={this.props.users} renderItem={ ({item})=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
 			</View>
 		);
 	}

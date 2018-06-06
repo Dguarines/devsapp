@@ -31,6 +31,7 @@ export const pegarListaDeUsuarios = ( userUid ) => {
 export const createChat = (userUid1, userUid2) => {
 	return(dispatch) => {
 
+		//Criando o próprio CHAT
 		let newChat = firebase.database().ref('chats').push();
 		newChat.child('members').child(userUid1).set({
 			id:userUid1
@@ -38,5 +39,17 @@ export const createChat = (userUid1, userUid2) => {
 		newChat.child('members').child(userUid2).set({
 			id:userUid2
 		})
+
+		//Associando aos envolvidos
+		let chatId = newChat.key;
+		firebase.database().ref('users').child(userUid1).child('chats')
+			.child(chatId).set({
+				id:chatId
+			});
+
+		firebase.database().ref('users').child(userUid2).child('chats')
+			.child(chatId).set({
+				id:chatId
+			});
 	}
 };
