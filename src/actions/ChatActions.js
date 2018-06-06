@@ -1,5 +1,36 @@
 import firebase from '../FirebaseConnection';
 
+export const getChatList = ( userUid ) => {
+	return (dispatch) => {
+
+		firebase.database().ref('users').child(userUid).child('chats').on('value', (snapshot) => {
+			let chats = [];
+
+			snapshot.forEach((childItem)=>{
+				chats.push({
+					key:childItem.key
+				})
+			});
+
+			dispatch({
+				type:'setChatList',
+				payload:{
+					chats:chats
+				}
+			});
+		});
+	};
+};
+
+export const setActiveChat = (chatId) => {
+	return {
+		type:'setActiveChat',
+		payload:{
+			chatid:chatId
+		}
+	};
+};
+
 export const pegarListaDeUsuarios = ( userUid ) => {
     return (dispatch) => {
 		

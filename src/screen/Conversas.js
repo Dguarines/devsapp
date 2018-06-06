@@ -10,7 +10,8 @@ const ConversasNavigator = TabNavigator({
     ConversasStack:{
         screen:ConversasStack, 
         navigationOptions:{
-            tabBarLabel:'Conversas'
+            tabBarLabel:'Conversas',
+            header:null
         }
     },
     ContatoList:{
