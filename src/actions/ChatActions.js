@@ -23,11 +23,12 @@ export const getChatList = ( userUid ) => {
 	};
 };
 
-export const setActiveChat = (chatId) => {
+export const setActiveChat = (chatId, activeChatTitle) => {
 	return {
 		type:'setActiveChat',
 		payload:{
-			chatid:chatId
+			chatid:chatId,
+			activeChatTitle:activeChatTitle
 		}
 	};
 };

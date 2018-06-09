@@ -6,7 +6,7 @@ import {  setActiveChat } from '../actions/ChatActions'
 export class ConversaInterna extends Component {
 
 	static navigationOptions = ({navigation}) => ({
-		title:'Conversa Interna',
+		title:navigation.state.params.title,
 		headerLeft:(
 			<TouchableHighlight onPress={()=>{navigation.state.params.voltarFunction()}} underlayColor={false}>
 				<Image source={require('react-navigation/src/views/assets/back-icon.png')} style={{width:25, height:25, marginLeft:20}} />
