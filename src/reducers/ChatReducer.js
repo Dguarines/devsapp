@@ -2,7 +2,8 @@ const initialState = {
     chats:[],
     users:[],
     activeChat:'',
-    activeChatTitle:''
+    activeChatTitle:'',
+    activeChatMessages:[]
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -17,6 +18,10 @@ const ChatReducer = (state = initialState, action) => {
 
     if(action.type == 'setChatList'){        
         return { ...state, chats:action.payload.chats };
+    }
+
+    if(action.type == 'setActiveChatMessage'){
+        return { ...state, activeChatMessages:action.payload.msgs}
     }
 	
 	return state;

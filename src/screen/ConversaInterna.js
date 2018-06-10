@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image, BackHandler, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import {  setActiveChat, sendMessage } from '../actions/ChatActions'
+import {  setActiveChat, sendMessage, monitorChat, monitorChatOff } from '../actions/ChatActions'
 
 import { MensagemItem } from '../components/ConversaInterna/MensagemItem';
 
@@ -22,12 +22,7 @@ export class ConversaInterna extends Component {
 		super(props);
 
 		this.state = {
-			tmpMsg:[
-				{key:1, date:'2018-01-01 18:00' ,uid:'123', m:'Oi, tudo bem?'},
-				{key:2, date:'2018-01-01 18:00' ,uid:'Zu9vw529HEURRyxVz19xUgWvD433', m:'Tudo, e voce?'},
-				{key:3, date:'2018-01-01 18:00' ,uid:'123', m:'Ok, legal.'},
-				{key:4, date:'2018-01-01 18:00' ,uid:'Zu9vw529HEURRyxVz19xUgWvD433', m:'No entanto, não podemos esquecer que a execução dos pontos do programa nos obriga à análise dos procedimentos normalmente adotados. Gostaria de enfatizar que o julgamento imparcial das eventualidades assume importantes posições no estabelecimento das formas de ação. Assim mesmo, a consolidação das estruturas pode nos levar a considerar a reestruturação do sistema de participação geral. Percebemos, cada vez mais, que a estrutura atual da organização facilita a criação de todos os recursos funcionais envolvidos. '}
-			]
+			inputText:''
 		};
 
 		console.disableYellowBox = true;
@@ -38,10 +33,13 @@ export class ConversaInterna extends Component {
 	componentDidMount(){
 		this.props.navigation.setParams({voltarFunction:this.voltar});
 		BackHandler.addEventListener('hardwareBackPress', this.voltar);
+
+		this.props.monitorChat(this.props.activeChat);
 	}
 
 	componentWillUnmount(){
 		BackHandler.removeEventListener('hardwareBackPress', this.voltar);
+		this.props.monitorChatOff(this.props.activeChat);
 	}
 
 	voltar(){
@@ -64,7 +62,7 @@ export class ConversaInterna extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList style={styles.chatArea} data={this.state.tmpMsg} renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
+				<FlatList style={styles.chatArea} data={this.props.activeChatMessages} renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
 				<View style={styles.sendArea}>
 					<TextInput style={styles.sendInput} value={this.state.inputText} onChangeText={(inputText)=>this.setState({inputText})}/>
 					<TouchableHighlight style={styles.sendButton} onPress={this.sendMsg}>
@@ -110,9 +108,10 @@ const mapStateToProps = (state) => {
 	return {
 		uid:state.auth.uid,
 		users:state.chat.users,
-		activeChat:state.chat.activeChat
+		activeChat:state.chat.activeChat,
+		activeChatMessages:state.chat.activeChatMessages
 	};
 };
 
-const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat, sendMessage })(ConversaInterna);
+const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat, sendMessage, monitorChat, monitorChatOff })(ConversaInterna);
 export default ConversaInternaConnect;

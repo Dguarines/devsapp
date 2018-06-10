@@ -127,3 +127,43 @@ export const createChat = (userUid1, userUid2) => {
 		});
 	}
 };
+
+export const monitorChat = (activeChat) =>{
+	return (dispatch) => {
+
+		firebase.database()
+		.ref('chats')
+		.child(activeChat)
+		.child('messages')
+		.orderByChild('date')
+		.on('value', (snapshot) => {
+			
+			let msgs = [];
+			snapshot.forEach((childItem)=>{
+				msgs.push({
+					key:childItem.key,
+					date:childItem.val().date,
+					m:childItem.val().m,
+					uid:childItem.val().uid
+				});
+			});
+
+			dispatch({
+				type:'setActiveChatMessage',
+				payload:{
+					msgs:msgs
+				}
+			});
+		});
+	};
+};
+
+export const monitorChatOff = (activeChat) =>{
+	return (dispatch) => {
+		firebase.database()
+		.ref('chats')
+		.child(activeChat)
+		.child('messages')
+		.off();
+	};
+};
