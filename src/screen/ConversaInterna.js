@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image, BackHandler, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableHighlight,
+		 Image, BackHandler, TextInput, KeyboardAvoidingView,
+		 Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 import {  setActiveChat, sendMessage, monitorChat, monitorChatOff } from '../actions/ChatActions'
@@ -60,8 +62,19 @@ export class ConversaInterna extends Component {
 	}
 
 	render() {
+
+		let AreaBehavior = Platform.select({
+			ios:'padding',
+			android:null
+		});
+
+		let Areaoffset = Platform.select({
+			ios:64,
+			android:null
+		});
+
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView behavior={AreaBehavior} keyboardVerticalOffset={Areaoffset} style={styles.container}>
 				<FlatList ref={(ref)=>{ this.chatArea = ref }}
 						  onLayout={()=>{ this.chatArea.scrollToEnd({animated:true}) }}
 						  onContentSizeChange={ () => {this.chatArea.scrollToEnd({animated:true})} }
@@ -74,7 +87,7 @@ export class ConversaInterna extends Component {
 						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
 					</TouchableHighlight>
 				</View>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 
