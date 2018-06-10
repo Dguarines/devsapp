@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image, BackHandler, TextInput } from 'react-native';
 import { connect } from 'react-redux';
+
 import {  setActiveChat } from '../actions/ChatActions'
+
+import { MensagemItem } from '../components/ConversaInterna/MensagemItem';
 
 export class ConversaInterna extends Component {
 
@@ -18,7 +21,14 @@ export class ConversaInterna extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			tmpMsg:[
+				{key:1, m:'Oi, tudo bem?'},
+				{key:2, m:'Tudo, e voce?'},
+				{key:3, m:'Ok, legal.'},
+				{key:4, m:'No entanto, não podemos esquecer que a execução dos pontos do programa nos obriga à análise dos procedimentos normalmente adotados. Gostaria de enfatizar que o julgamento imparcial das eventualidades assume importantes posições no estabelecimento das formas de ação. Assim mesmo, a consolidação das estruturas pode nos levar a considerar a reestruturação do sistema de participação geral. Percebemos, cada vez mais, que a estrutura atual da organização facilita a criação de todos os recursos funcionais envolvidos. '}
+			]
+		};
 
 		console.disableYellowBox = true;
 		this.voltar = this.voltar.bind(this);
@@ -43,7 +53,7 @@ export class ConversaInterna extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList style={styles.chatArea} data={[]} renderItem={()=><Text>...</Text>} />
+				<FlatList style={styles.chatArea} data={this.state.tmpMsg} renderItem={({item})=><MensagemItem data={item} />} />
 				<View style={styles.sendArea}>
 					<TextInput style={styles.sendInput} />
 					<TouchableHighlight style={styles.sendButton}>
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
 	},
 	chatArea:{
 		flex:1,
-		backgroundColor:'#FF0000'
+		backgroundColor:'#CCCCCC'
 	},
 	sendArea:{
 		height:50,
