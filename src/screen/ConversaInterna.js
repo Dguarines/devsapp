@@ -23,10 +23,10 @@ export class ConversaInterna extends Component {
 
 		this.state = {
 			tmpMsg:[
-				{key:1, m:'Oi, tudo bem?'},
-				{key:2, m:'Tudo, e voce?'},
-				{key:3, m:'Ok, legal.'},
-				{key:4, m:'No entanto, não podemos esquecer que a execução dos pontos do programa nos obriga à análise dos procedimentos normalmente adotados. Gostaria de enfatizar que o julgamento imparcial das eventualidades assume importantes posições no estabelecimento das formas de ação. Assim mesmo, a consolidação das estruturas pode nos levar a considerar a reestruturação do sistema de participação geral. Percebemos, cada vez mais, que a estrutura atual da organização facilita a criação de todos os recursos funcionais envolvidos. '}
+				{key:1, date:'2018-01-01 18:00' ,uid:'123', m:'Oi, tudo bem?'},
+				{key:2, date:'2018-01-01 18:00' ,uid:'Zu9vw529HEURRyxVz19xUgWvD433', m:'Tudo, e voce?'},
+				{key:3, date:'2018-01-01 18:00' ,uid:'123', m:'Ok, legal.'},
+				{key:4, date:'2018-01-01 18:00' ,uid:'Zu9vw529HEURRyxVz19xUgWvD433', m:'No entanto, não podemos esquecer que a execução dos pontos do programa nos obriga à análise dos procedimentos normalmente adotados. Gostaria de enfatizar que o julgamento imparcial das eventualidades assume importantes posições no estabelecimento das formas de ação. Assim mesmo, a consolidação das estruturas pode nos levar a considerar a reestruturação do sistema de participação geral. Percebemos, cada vez mais, que a estrutura atual da organização facilita a criação de todos os recursos funcionais envolvidos. '}
 			]
 		};
 
@@ -53,9 +53,9 @@ export class ConversaInterna extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList style={styles.chatArea} data={this.state.tmpMsg} renderItem={({item})=><MensagemItem data={item} />} />
+				<FlatList style={styles.chatArea} data={this.state.tmpMsg} renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
 				<View style={styles.sendArea}>
-					<TextInput style={styles.sendInput} />
+					<TextInput style={styles.sendInput}/>
 					<TouchableHighlight style={styles.sendButton}>
 						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
 					</TouchableHighlight>
