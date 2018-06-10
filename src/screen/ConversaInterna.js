@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image, BackHandler, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-import {  setActiveChat } from '../actions/ChatActions'
+import {  setActiveChat, sendMessage } from '../actions/ChatActions'
 
 import { MensagemItem } from '../components/ConversaInterna/MensagemItem';
 
@@ -31,7 +31,8 @@ export class ConversaInterna extends Component {
 		};
 
 		console.disableYellowBox = true;
-		this.voltar = this.voltar.bind(this);
+		this.voltar  = this.voltar.bind(this);
+		this.sendMsg = this.sendMsg.bind(this);
 	}
 
 	componentDidMount(){
@@ -50,13 +51,23 @@ export class ConversaInterna extends Component {
 		return true;
 	}
 
+	sendMsg(){
+		let txt = this.state.inputText;
+
+		let state = this.state;
+		state.inputText = '';
+		this.setState(state);
+
+		this.props.sendMessage(txt, this.props.uid, this.props.activeChat);
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<FlatList style={styles.chatArea} data={this.state.tmpMsg} renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
 				<View style={styles.sendArea}>
-					<TextInput style={styles.sendInput}/>
-					<TouchableHighlight style={styles.sendButton}>
+					<TextInput style={styles.sendInput} value={this.state.inputText} onChangeText={(inputText)=>this.setState({inputText})}/>
+					<TouchableHighlight style={styles.sendButton} onPress={this.sendMsg}>
 						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
 					</TouchableHighlight>
 				</View>
@@ -98,9 +109,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
 	return {
 		uid:state.auth.uid,
-		users:state.chat.users
+		users:state.chat.users,
+		activeChat:state.chat.activeChat
 	};
 };
 
-const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat })(ConversaInterna);
+const ConversaInternaConnect = connect(mapStateToProps, { setActiveChat, sendMessage })(ConversaInterna);
 export default ConversaInternaConnect;
