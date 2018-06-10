@@ -27,8 +27,7 @@ export class ConversasList extends Component {
 	}
 
 	conversaClick(data){
-		alert(data.name);
-		this.props.setActiveChat( data.key, data.name );
+		this.props.setActiveChat( data.key, data.title );
 	}
 
 	render() {
