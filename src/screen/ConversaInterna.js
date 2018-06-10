@@ -39,10 +39,10 @@ export class ConversaInterna extends Component {
 
 	componentWillUnmount(){
 		BackHandler.removeEventListener('hardwareBackPress', this.voltar);
-		this.props.monitorChatOff(this.props.activeChat);
 	}
 
 	voltar(){
+		this.props.monitorChatOff(this.props.activeChat);
 		this.props.setActiveChat('');
 		this.props.navigation.goBack();
 

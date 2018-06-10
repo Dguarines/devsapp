@@ -135,7 +135,6 @@ export const monitorChat = (activeChat) =>{
 		.ref('chats')
 		.child(activeChat)
 		.child('messages')
-		.orderByChild('date')
 		.on('value', (snapshot) => {
 			
 			let msgs = [];
