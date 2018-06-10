@@ -62,7 +62,12 @@ export class ConversaInterna extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList style={styles.chatArea} data={this.props.activeChatMessages} renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
+				<FlatList ref={(ref)=>{ this.chatArea = ref }}
+						  onLayout={()=>{ this.chatArea.scrollToEnd({animated:true}) }}
+						  onContentSizeChange={ () => {this.chatArea.scrollToEnd({animated:true})} }
+						  style={styles.chatArea} 
+						  data={this.props.activeChatMessages} 
+						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
 				<View style={styles.sendArea}>
 					<TextInput style={styles.sendInput} value={this.state.inputText} onChangeText={(inputText)=>this.setState({inputText})}/>
 					<TouchableHighlight style={styles.sendButton} onPress={this.sendMsg}>
