@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 import { pegarListaDeUsuarios, createChat } from '../actions/ChatActions';
@@ -16,13 +16,13 @@ export class ContatoList extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			loading:false
+		};
 
 		console.disableYellowBox = true;
-		this.props.pegarListaDeUsuarios(this.props.uid);
+		this.props.pegarListaDeUsuarios(this.props.uid, () => {this.setState({loading:false})});
 		this.contatoClick = this.contatoClick.bind(this);
-
-		//alert(JSON.stringify(users));
 	}
 
 	contatoClick(item){
@@ -33,7 +33,9 @@ export class ContatoList extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<FlatList data={this.props.users} renderItem={ ({item})=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
+				{this.state.loading && <ActivityIndicator size="large" /> }
+				<FlatList data={this.props.users} 
+						  renderItem={ ({item})=> <ContatoItem data={item} onPress={this.contatoClick} /> } />
 			</View>
 		);
 	}

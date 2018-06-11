@@ -1,6 +1,6 @@
 import firebase from '../FirebaseConnection';
 
-export const getChatList = ( userUid ) => {
+export const getChatList = ( userUid, callback ) => {
 	return (dispatch) => {
 
 		firebase.database().ref('users').child(userUid).child('chats').on('value', (snapshot) => {
@@ -12,6 +12,8 @@ export const getChatList = ( userUid ) => {
 					title:childItem.val().title
 				})
 			});
+
+			callback();
 
 			dispatch({
 				type:'setChatList',
@@ -52,7 +54,7 @@ export const sendMessage = (txt, author, activeChat) => {
 	};
 };
 
-export const pegarListaDeUsuarios = ( userUid ) => {
+export const pegarListaDeUsuarios = ( userUid, callback ) => {
     return (dispatch) => {
 		
 		firebase.database().ref("users").orderByChild("name").once("value")
@@ -68,6 +70,8 @@ export const pegarListaDeUsuarios = ( userUid ) => {
 					});
 				}
 			});
+
+			callback();
 
             dispatch({
                 type:'carregarListaDeUsuarios',

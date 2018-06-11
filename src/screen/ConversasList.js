@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getChatList, setActiveChat } from '../actions/ChatActions';
@@ -14,9 +14,11 @@ export class ConversasList extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			loading:true
+		};
 
-		this.props.getChatList( this.props.uid );
+		this.props.getChatList( this.props.uid, ()=>{this.setState({loading:false})} );
 		this.conversaClick = this.conversaClick.bind(this);
 	}
 
@@ -33,6 +35,7 @@ export class ConversasList extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				{this.state.loading && <ActivityIndicator size="large" />}
 				<FlatList data={this.props.chats} 
 						  renderItem={({item})=> <ConversasItem data={item} onPress={this.conversaClick} /> } />
 			</View>
