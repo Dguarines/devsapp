@@ -12,7 +12,9 @@ export class SingUp extends Component {
 
 	constructor(props) {
 		super(props);
-        this.state = {};
+        this.state = {
+            loading:false
+        };
         
     }
 
@@ -36,7 +38,8 @@ export class SingUp extends Component {
                 <TextInput secureTextEntry style={styles.input} value={this.props.password} onChangeText={this.props.changePassword} />
 
                 <Button title="Cadastrar" onPress={() => {
-                    this.props.signUp(this.props.name, this.props.email, this.props.password);
+                    this.setState({loading:true});
+                    this.props.signUp(this.props.name, this.props.email, this.props.password, ()=>{this.setState({loading:false})});
                 }} />
             </View>
 		);
