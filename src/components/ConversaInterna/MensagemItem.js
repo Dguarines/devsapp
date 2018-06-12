@@ -46,7 +46,9 @@ export class MensagemItem extends Component {
 	render() {
 		return (
             <View style={[styles.area, {alignSelf:this.state.align ,backgroundColor:this.state.bgColor}]}>
-			    <Text style={{textAlign:this.state.txtAlign}}>{this.props.data.m}</Text>
+			    {this.props.data.msgType == 'text' &&
+                    <Text style={{textAlign:this.state.txtAlign}}>{this.props.data.m}</Text>
+                }
                 <Text style={styles.dateTxt}>{this.state.dateMsg}</Text>
             </View>
 		);

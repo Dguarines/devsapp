@@ -35,7 +35,7 @@ export const setActiveChat = (chatId, activeChatTitle) => {
 	};
 };
 
-export const sendMessage = (txt, author, activeChat) => {
+export const sendMessage = (msgType , msgContent, author, activeChat) => {
 	return (dispatch) => {
 
 		let currentDate = '';
@@ -43,14 +43,26 @@ export const sendMessage = (txt, author, activeChat) => {
 
 		//YYYY-MM-DD HH:ii:SS
 		currentDate = cDate.getFullYear()+'-'+(cDate.getMonth()+1)+'-'+cDate.getDate()+' '+cDate.getHours()+':'+cDate.getMinutes()+':'+cDate.getSeconds();
-
 		let msgId = firebase.database().ref('chats').child(activeChat).child('messages').push();
 		
-		msgId.set({
-			date:currentDate,
-			m:txt,
-			uid:author
-		});
+		switch(msgType){
+			case 'text':
+				msgId.set({
+					msgType:'text',
+					date:currentDate,
+					m:msgContent,
+					uid:author
+				});
+				break;
+			case 'image':
+				msgId.set({
+					msgType:'image',
+					date:currentDate,
+					imgSource:msgContent,
+					uid:author
+				});
+				break;
+		}
 	};
 };
 
@@ -143,12 +155,27 @@ export const monitorChat = (activeChat) =>{
 			
 			let msgs = [];
 			snapshot.forEach((childItem)=>{
-				msgs.push({
-					key:childItem.key,
-					date:childItem.val().date,
-					m:childItem.val().m,
-					uid:childItem.val().uid
-				});
+
+				switch(childItem.val().msgType){
+					case 'text':
+						msgs.push({
+							msgType:'text',
+							key:childItem.key,
+							date:childItem.val().date,
+							m:childItem.val().m,
+							uid:childItem.val().uid,
+						});
+						break;
+					case 'image':
+						msgs.push({
+							msgType:'image',
+							key:childItem.key,
+							date:childItem.val().date,
+							imgSource:childItem.val().imgSource,
+							uid:childItem.val().uid,
+						});
+						break;
+				}
 			});
 
 			dispatch({
