@@ -28,8 +28,9 @@ export class ConversaInterna extends Component {
 		};
 
 		console.disableYellowBox = true;
-		this.voltar  = this.voltar.bind(this);
-		this.sendMsg = this.sendMsg.bind(this);
+		this.voltar      = this.voltar.bind(this);
+		this.sendMsg     = this.sendMsg.bind(this);
+		this.chooseImage = this.chooseImage.bind(this);
 	}
 
 	componentDidMount(){
@@ -61,6 +62,10 @@ export class ConversaInterna extends Component {
 		this.props.sendMessage('text' , txt, this.props.uid, this.props.activeChat);
 	}
 
+	chooseImage(){
+		alert('Selecione sua imagem!!!!!11');
+	}
+
 	render() {
 
 		let AreaBehavior = Platform.select({
@@ -82,6 +87,9 @@ export class ConversaInterna extends Component {
 						  data={this.props.activeChatMessages} 
 						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
 				<View style={styles.sendArea}>
+					<TouchableHighlight style={styles.imageButton} onPress={this.chooseImage}>
+						<Image style={styles.btmImage} source={require('../assets/images/new_image_3.png')} />
+					</TouchableHighlight>
 					<TextInput style={styles.sendInput} value={this.state.inputText} onChangeText={(inputText)=>this.setState({inputText})}/>
 					<TouchableHighlight style={styles.sendButton} onPress={this.sendMsg}>
 						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
@@ -116,7 +124,17 @@ const styles = StyleSheet.create({
 		justifyContent:'center',
 		alignItems:'center'
 	},
+	imageButton:{
+		width:50,
+		height:50,
+		justifyContent:'center',
+		alignItems:'center'
+	},
 	sendImage:{
+		height:40,
+		width:40
+	},
+	btmImage:{
 		height:40,
 		width:40
 	}

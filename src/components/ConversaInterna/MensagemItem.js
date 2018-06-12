@@ -49,6 +49,9 @@ export class MensagemItem extends Component {
 			    {this.props.data.msgType == 'text' &&
                     <Text style={{textAlign:this.state.txtAlign}}>{this.props.data.m}</Text>
                 }
+                {this.props.data.msgType == 'image' &&
+                    <Text>(IMAGEM)</Text>
+                }
                 <Text style={styles.dateTxt}>{this.state.dateMsg}</Text>
             </View>
 		);
