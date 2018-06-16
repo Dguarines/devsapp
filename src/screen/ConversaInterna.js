@@ -3,10 +3,9 @@ import { View, Text, StyleSheet, FlatList, TouchableHighlight,
 		 Image, BackHandler, TextInput, KeyboardAvoidingView,
 		 Platform } from 'react-native';
 import { connect } from 'react-redux';
-
-import {  setActiveChat, sendMessage, monitorChat, monitorChatOff } from '../actions/ChatActions'
-
+import { setActiveChat, sendMessage, monitorChat, monitorChatOff } from '../actions/ChatActions'
 import { MensagemItem } from '../components/ConversaInterna/MensagemItem';
+import ImagePicker from 'react-native-image-picker';
 
 export class ConversaInterna extends Component {
 
@@ -24,7 +23,8 @@ export class ConversaInterna extends Component {
 		super(props);
 
 		this.state = {
-			inputText:''
+			inputText:'',
+			imageTmp:null
 		};
 
 		console.disableYellowBox = true;
@@ -63,7 +63,16 @@ export class ConversaInterna extends Component {
 	}
 
 	chooseImage(){
-		alert('Selecione sua imagem!!!!!11');
+		
+		ImagePicker.showImagePicker(null, (r)=>{
+
+			if(r.uri){
+				let img = {uri: r.uri};
+				let state = this.state;
+				state.imageTmp = img;
+				this.setState(state);
+			}
+		});
 	}
 
 	render() {
@@ -85,7 +94,11 @@ export class ConversaInterna extends Component {
 						  onContentSizeChange={ () => {this.chatArea.scrollToEnd({animated:true})} }
 						  style={styles.chatArea} 
 						  data={this.props.activeChatMessages} 
-						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} />
+						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} 
+				/>
+				<View style={styles.imageTmp}>
+					<Image source={this.state.imageTmp} style={styles.imageTpmImage}/>
+				</View>
 				<View style={styles.sendArea}>
 					<TouchableHighlight style={styles.imageButton} onPress={this.chooseImage}>
 						<Image style={styles.btmImage} source={require('../assets/images/new_image_3.png')} />
@@ -137,6 +150,14 @@ const styles = StyleSheet.create({
 	btmImage:{
 		height:40,
 		width:40
+	},
+	imageTmp:{
+		height:100,
+		backgroundColor:'#DDDDDD'
+	},
+	imageTpmImage:{
+		width:100,
+		height:100
 	}
 });
 
