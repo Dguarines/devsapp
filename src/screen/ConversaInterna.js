@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight,
 		 Image, BackHandler, TextInput, KeyboardAvoidingView,
-		 Platform } from 'react-native';
+		 Platform, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { setActiveChat, sendMessage, monitorChat, monitorChatOff, sendImage } from '../actions/ChatActions'
 import { MensagemItem } from '../components/ConversaInterna/MensagemItem';
@@ -28,13 +28,17 @@ export class ConversaInterna extends Component {
 
 		this.state = {
 			inputText:'',
-			pct:0
+			pct:0,
+			modalVisible:false,
+			modalImage:null
 		};
 
 		console.disableYellowBox = true;
-		this.voltar      = this.voltar.bind(this);
-		this.sendMsg     = this.sendMsg.bind(this);
-		this.chooseImage = this.chooseImage.bind(this);
+		this.voltar      	 = this.voltar.bind(this);
+		this.sendMsg     	 = this.sendMsg.bind(this);
+		this.chooseImage 	 = this.chooseImage.bind(this);
+		this.setModalVisible = this.setModalVisible.bind(this);
+		this.imagePress      = this.imagePress.bind(this);
 	}
 
 	componentDidMount(){
@@ -46,6 +50,12 @@ export class ConversaInterna extends Component {
 
 	componentWillUnmount(){
 		BackHandler.removeEventListener('hardwareBackPress', this.voltar);
+	}
+
+	setModalVisible(status){
+		let state = this.state;
+		state.modalVisible = status;
+		this.setState(state);
 	}
 
 	voltar(){
@@ -90,13 +100,22 @@ export class ConversaInterna extends Component {
 							let state = this.state;
 							state.pct = 0;
 							this.setState(state);
-							
+
 							this.props.sendMessage('image', imgName, this.props.uid, this.props.activeChat);
 						}
 					);
 				});
 			}
 		});
+	}
+
+	imagePress(img){
+
+		let state = this.state;
+		state.modalImage = img;
+		this.setState(state);
+
+		this.setModalVisible(true);
 	}
 
 	render() {
@@ -118,7 +137,7 @@ export class ConversaInterna extends Component {
 						  onContentSizeChange={ () => {this.chatArea.scrollToEnd({animated:true})} }
 						  style={styles.chatArea} 
 						  data={this.props.activeChatMessages} 
-						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} 
+						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} onImagePress={this.imagePress}/>} 
 				/>
 				{this.state.pct > 0 &&
 					<View style={styles.imageTmp}>
@@ -136,6 +155,12 @@ export class ConversaInterna extends Component {
 						<Image style={styles.sendImage} source={require('../assets/images/send.png')} />
 					</TouchableHighlight>
 				</View>
+
+				<Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
+					<TouchableHighlight onPress={()=>{this.setModalVisible(false)}} style={styles.modalView}>
+						<Image resizeMode="contain" style={styles.modalImage} source={{uri:this.state.modalImage}}/>
+					</TouchableHighlight>
+				</Modal>
 			</KeyboardAvoidingView>
 		);
 	}
@@ -189,6 +214,21 @@ const styles = StyleSheet.create({
 	imageTmpBar:{
 		height:10,
 		backgroundColor:'#FF0000'
+	},
+	modalView:{
+		backgroundColor:'#000000',
+		paddingTop:30,
+		flex:1
+	},
+	modalImage:{
+		backgroundColor:'#000000',
+		flex:1,
+		justifyContent:'center',
+		alignItems:'center'
+	},
+	modalImage:{
+		width:'100%',
+		height:'100%'
 	}
 });
 
