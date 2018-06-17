@@ -28,7 +28,7 @@ export class ConversaInterna extends Component {
 
 		this.state = {
 			inputText:'',
-			imageTmp:null
+			pct:0
 		};
 
 		console.disableYellowBox = true;
@@ -77,10 +77,23 @@ export class ConversaInterna extends Component {
 					return RNFetchBlob.polyfill.Blob.build(data, {type: 'image/jpeg;BASE64'});
 				})
 				.then((blob)=>{
-					this.props.sendImage(blob, (imgName)=>{
+					this.props.sendImage(
+						blob,
+						(snapshot) => {
+							let pct = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-						this.props.sendMessage('image', imgName, this.props.uid, this.props.activeChat);
-					});
+							let state = this.state;
+							state.pct = pct;
+							this.setState(state);
+						}, 
+						(imgName)=>{
+							let state = this.state;
+							state.pct = 0;
+							this.setState(state);
+							
+							this.props.sendMessage('image', imgName, this.props.uid, this.props.activeChat);
+						}
+					);
 				});
 			}
 		});
@@ -107,9 +120,13 @@ export class ConversaInterna extends Component {
 						  data={this.props.activeChatMessages} 
 						  renderItem={({item})=><MensagemItem data={item} me={this.props.uid} />} 
 				/>
-				<View style={styles.imageTmp}>
-					<Image source={this.state.imageTmp} style={styles.imageTpmImage}/>
-				</View>
+				{this.state.pct > 0 &&
+					<View style={styles.imageTmp}>
+						<View style={[{width:this.state.pct+'%'}, styles.imageTmpBar]}> 
+							<Text> </Text>
+						</View>
+					</View>
+				}
 				<View style={styles.sendArea}>
 					<TouchableHighlight style={styles.imageButton} onPress={this.chooseImage}>
 						<Image style={styles.btmImage} source={require('../assets/images/new_image_3.png')} />
@@ -163,12 +180,15 @@ const styles = StyleSheet.create({
 		width:40
 	},
 	imageTmp:{
-		height:100,
-		backgroundColor:'#DDDDDD'
+		height:10
 	},
 	imageTpmImage:{
 		width:100,
 		height:100
+	},
+	imageTmpBar:{
+		height:10,
+		backgroundColor:'#FF0000'
 	}
 });
 

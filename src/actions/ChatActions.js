@@ -35,19 +35,18 @@ export const setActiveChat = (chatId, activeChatTitle) => {
 	};
 };
 
-export const sendImage = (blob, callback) => {
+export const sendImage = (blob, progressCallback, successCallback) => {
 	return (dispatch) => {
 
 		let tmpKey = firebase.database().ref('chats').push().key; 
 		let fbimage = firebase.storage().ref('images').child(tmpKey);
 
 		fbimage.put(blob, {contentType:'image/jpeg'})
-		.then(()=>{
-			callback( tmpKey );
-		})
-		.catch((error)=>{
-			alert(error.code);
-		});
+		.on('state_changed', 
+			progressCallback,
+			(error) => { alert(error.code); },
+			() => {successCallback( tmpKey );}
+		);
 
 	}
 };
