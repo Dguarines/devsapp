@@ -26,8 +26,20 @@ export class ContatoList extends Component {
 	}
 
 	contatoClick(item){
-		this.props.createChat( this.props.uid, item.key);
-		this.props.navigation.navigate('ConversasStark');
+		let found = false;
+
+		for(var i in this.props.chats) {
+			if(this.props.chats[i].other == item.key){
+				found = true;
+			}
+		} 
+
+		if(found == false) {
+			this.props.createChat( this.props.uid, item.key);
+			this.props.navigation.navigate('ConversasStark');
+		}else{
+			alert('Já existe um CHAT com esse usuário...');
+		}
 	}
 
 	render() {
@@ -53,7 +65,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
 	return {
 		uid:state.auth.uid,
-		users:state.chat.users
+		users:state.chat.users,
+		chats:state.chat.chats
 	};
 };
 
