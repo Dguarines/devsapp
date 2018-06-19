@@ -10,7 +10,7 @@ import Preload   from './src/screen/Preload';
 import Home      from './src/screen/Home';
 import Conversas from './src/screen/Conversas';
 import SignUp    from './src/screen/SingUp';
-import SignIn    from './src/screen/SignIn';
+import SignIn    from './src/screen/SignIn'; 
 
 let store = createStore(Reducers, applyMiddleware(ReduxThunk));
 
